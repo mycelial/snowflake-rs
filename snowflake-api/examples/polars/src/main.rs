@@ -1,6 +1,5 @@
 use anyhow::Result;
 use polars::frame::DataFrame;
-
 use snowflake_api::SnowflakeApi;
 
 #[tokio::main]

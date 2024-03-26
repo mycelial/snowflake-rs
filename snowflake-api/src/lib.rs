@@ -37,6 +37,8 @@ use crate::responses::{ExecResponseRowType, SnowflakeType};
 use crate::session::AuthError::MissingEnvArgument;
 
 pub mod connection;
+#[cfg(feature = "refinery")]
+mod migration;
 #[cfg(feature = "polars")]
 mod polars;
 mod put;

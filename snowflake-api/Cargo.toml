@@ -13,13 +13,15 @@ version = "0.7.0"
 
 [features]
 default = ["cert-auth"]
-all = ["cert-auth", "polars"]
+all = ["cert-auth", "polars", "refinery"]
 cert-auth = ["dep:snowflake-jwt"]
 # support for conversion of arrow and json payloads to dataframes
 polars = ["dep:polars-core", "dep:polars-io"]
+refinery = ["dep:refinery-core", "dep:time", "dep:once_cell"]
+
 
 [dependencies]
-arrow = "50"
+arrow = { version = "50", features = ["prettyprint"] }
 async-trait = "0.1"
 base64 = "0.21"
 bytes = "1"
@@ -39,16 +41,27 @@ thiserror = "1"
 url = "2"
 uuid = { version = "1", features = ["v4"] }
 snowflake-jwt = { version = "0.3.0", optional = true }
+tap = "1"
 
 # polars-support
-polars-io = { version = ">=0.32", features = ["json", "ipc_streaming"], optional = true}
-polars-core = { version = ">=0.32", optional = true}
+polars-io = { version = ">=0.32", features = [
+    "json",
+    "ipc_streaming",
+], optional = true }
+polars-core = { version = ">=0.32", optional = true }
 
 # put request support
 object_store = { version = "0.9", features = ["aws"] }
-glob = { version = "0.3"}
+glob = { version = "0.3" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 
+# migrations
+refinery-core = { git = "https://github.com/wseaton/refinery", branch = "public-migration-applied", optional = true }
+time = { version = "0.3.5", features = [
+    "parsing",
+    "formatting",
+], optional = true }
+once_cell = { version = "1", optional = true }
 
 [dev-dependencies]
 anyhow = "1"
